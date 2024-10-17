@@ -1,0 +1,36 @@
+.formHeader {
+  margin: 0;
+}
+
+.formchanger {
+  background-color: #858282;
+  /* padding: 10px; */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  width: 200px;
+  cursor: pointer;
+}
+
+.cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  color: black;
+  background-color: #d7d7d7;
+}
+
+.controlCell {
+  color: white;
+}
+
+.cell:nth-child(1) {
+  grid-row: span 2;
+}
+.cell:nth-child(2) {
+  background-color: #444;
+}
+.cell:nth-child(3) {
+  background-color: #444;
+}

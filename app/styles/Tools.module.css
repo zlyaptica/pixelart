@@ -1,0 +1,73 @@
+.tools {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    padding: 0 20px;
+    height: 100vh;
+    bottom: 0;
+}
+
+.colorControlContainer {
+    height: 100px;
+}
+
+.colorControl {
+    position: relative;
+} 
+
+.primaryColor {
+    position: absolute;
+    left: 0;
+}
+
+.secondaryColor {
+    position: absolute;
+    left: 12%;
+    bottom: -70px;
+}
+
+.changeColorIcon {
+    position: absolute;
+    bottom: -70px;
+    left: 2%;
+    transform: rotate(75deg);
+}
+
+
+.colorPicker {
+    appearance: none;
+    width: 50px;
+    height: 50px;
+    background: none;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+}
+
+.options {
+    /* display: flex; */
+    /* flex-direction: row; */
+    margin-bottom: 15px;
+}
+
+.option {
+    margin-bottom: 15px;
+}
+
+.option:last-child {
+    margin-right: 0;
+}
+
+.tooltypes {
+    display: flex;
+    flex-direction: column;
+}
+
+.tooltypes > input {
+    display: flex;
+    flex-direction: row;
+}
+
+.radioName {
+    font-size: 16px;
+}
