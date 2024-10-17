@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Tools } from "./components/Tools";
 import { CanvasGrid } from "./components/CanvasGrid";
 import styles from "./page.module.css"

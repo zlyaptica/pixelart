@@ -1,7 +1,6 @@
-import { FC, memo, useState } from "react";
+import { FC, memo } from "react";
 import { CanvasCell } from "./CanvasCell";
-import { useAppDispatch, useAppSelector } from "../lib/hooks";
-import { setHoveredCellCoodrdinates } from "../lib/reducers/CanvasClise/CanvasSlice";
+import { useAppSelector } from "../lib/hooks";
 
 interface CanvasRowProps {
     x: number

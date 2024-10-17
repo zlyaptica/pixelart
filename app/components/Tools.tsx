@@ -1,4 +1,4 @@
-import React, { FC, memo, MutableRefObject } from 'react'
+import React, { FC, memo } from 'react'
 import styles from "@/app/styles/Tools.module.css"
 import { useAppDispatch, useAppSelector } from '../lib/hooks'
 import { setPrimaryColor, setSecondaryColor, swapColors } from '../lib/reducers/ColorSlice'

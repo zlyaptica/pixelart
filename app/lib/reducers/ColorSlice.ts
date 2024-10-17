@@ -24,7 +24,7 @@ export const colorSlice = createSlice({
             state.secondaryColor = action.payload
         },
         swapColors: (state) => {
-            let swap: string = state.primaryColor
+            const swap: string = state.primaryColor
             state.primaryColor = state.secondaryColor
             state.secondaryColor = swap 
         }

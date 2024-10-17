@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { ICell } from "../../models"
-import { CanvasSize, CellCoordinates } from "../../types"
+import { CellCoordinates } from "../../types"
 import { IChangeCellColorPayload, IChangeCellOpacityPayload, IHoveredCell } from "./payloads"
 import { fillCanvas } from "../../utils/fillCanvas"
 
@@ -31,7 +31,7 @@ export const canvasSlice = createSlice({
         initCanvas: (state) => {
             state.cells = fillCanvas(state.width, state.height)
         },
-        changeCellColor: (state, action: PayloadAction<IChangeCellColorPayload>) => {
+        changeCellColor: (state, action: PayloadAction<ICell>) => {
             const { x, y } = action.payload.position
             state.cells[x][y].color = action.payload.color
             state.cells[x][y].opacity = 1

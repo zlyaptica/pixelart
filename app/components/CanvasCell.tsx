@@ -1,9 +1,9 @@
-import { FC, memo, useEffect } from "react";
+import { FC, memo } from "react";
 import styles from '@/app/styles/CanvasCell.module.css'
 import { useAppDispatch, useAppSelector } from "../lib/hooks";
 import { ToolType } from "../lib/enums";
 import { ICell } from "../lib/models";
-import { IChangeCellColorPayload, IChangeCellOpacityPayload, IHoveredCell } from "../lib/reducers/CanvasClise/payloads";
+import { IChangeCellOpacityPayload, IHoveredCell } from "../lib/reducers/CanvasClise/payloads";
 import { changeCellColor, changeCellOpacity, fillBackground, handleHoveredCell, movePicture, setAuthenticColor, setAuthenticOpacity, setHoveredCellCoodrdinates, setPreviousPosition } from "../lib/reducers/CanvasClise/CanvasSlice";
 import { setPrimaryColor } from "../lib/reducers/ColorSlice";
 
@@ -25,7 +25,7 @@ const CanvasCell: FC<ICanvasCellProps> = memo((props) => {
         if (toolType === ToolType.brush) {
             dispatch(setAuthenticColor(props.cell.color))
             dispatch(setAuthenticOpacity(props.cell.opacity))
-            const cell: IChangeCellColorPayload = {
+            const cell: ICell = {
                 position: { x, y },
                 color: color,
                 opacity: 1
@@ -69,7 +69,7 @@ const CanvasCell: FC<ICanvasCellProps> = memo((props) => {
 
     const handleMouseEnter = (e: any) => {
         dispatch(setHoveredCellCoodrdinates(props.cell.position))
-        
+
         if (e.buttons === 0 && toolType === ToolType.move) return
 
         dispatch(setAuthenticColor(props.cell.color))
