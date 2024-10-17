@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { ICell } from "../../models"
 import { CellCoordinates } from "../../types"
-import { IChangeCellColorPayload, IChangeCellOpacityPayload, IHoveredCell } from "./payloads"
+import { IChangeCellOpacityPayload, IHoveredCell } from "./payloads"
 import { fillCanvas } from "../../utils/fillCanvas"
 
 interface ICanvasState {
