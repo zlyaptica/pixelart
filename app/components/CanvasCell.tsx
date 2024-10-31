@@ -79,7 +79,6 @@ const CanvasCell: FC<ICanvasCellProps> = memo((props) => {
         if (toolType === ToolType.brush) {
             cellOpacity = 1
         } else if (toolType === ToolType.move) {
-            console.log("opacity", props.cell.opacity, props.cell.position)
             cellOpacity = props.cell.opacity
         } else {
             cellOpacity = 0.5

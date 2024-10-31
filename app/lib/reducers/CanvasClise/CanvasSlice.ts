@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { ICell } from "../../models"
 import { CellCoordinates } from "../../types"
 import { IChangeCellOpacityPayload, IHoveredCell } from "./payloads"
-import { fillCanvas } from "../../utils/fillCanvas"
+import { fillCanvas, initCanvasInLocalStorage, saveCanvas, saveCellChanges } from "../../utils/canvasHelpers"
 
 interface ICanvasState {
     width: number,
@@ -28,17 +28,30 @@ export const canvasSlice = createSlice({
     name: "canvas",
     initialState,
     reducers: {
-        initCanvas: (state) => {
-            state.cells = fillCanvas(state.width, state.height)
+        initCanvas: (state, action: PayloadAction<ICell[][]>) => {
+            const canvas = action.payload
+            if (canvas.length == 0) {
+                state.cells = fillCanvas(state.width, state.height)
+                initCanvasInLocalStorage(state.cells)
+            } else {
+                let width: number = canvas[0].length
+                let height: number = canvas.length
+
+                state.width = width
+                state.height = height
+                state.cells = canvas
+            }
         },
         changeCellColor: (state, action: PayloadAction<ICell>) => {
             const { x, y } = action.payload.position
             state.cells[x][y].color = action.payload.color
             state.cells[x][y].opacity = 1
+            saveCellChanges(state.cells[x][y])
         },
         changeCellOpacity: (state, action: PayloadAction<IChangeCellOpacityPayload>) => {
             const { x, y } = action.payload.position
             state.cells[x][y].opacity = action.payload.opacity
+            saveCellChanges(state.cells[x][y])
         },
         handleHoveredCell: (state, action: PayloadAction<IHoveredCell>) => {
             const { x, y } = action.payload.position
@@ -64,10 +77,12 @@ export const canvasSlice = createSlice({
                 })
             })
             state.width += 1
+            saveCanvas(state.cells)
         },
         decreaseWidth: (state) => {
             state.width -= 1
             state.cells.forEach((row) => row.splice(state.width, 1))
+            saveCanvas(state.cells)
         },
         increaseHeight: (state) => {
             const newRow = Array.from({ length: state.width }, (_, y) => ({
@@ -77,16 +92,19 @@ export const canvasSlice = createSlice({
             }))
             state.cells.push(newRow)
             state.height++
+            saveCanvas(state.cells)
         },
         decreaseHeight: (state) => {
             state.height -= 1
             state.cells.splice(state.height, 1)
+            saveCanvas(state.cells)
         },
         fillBackground: (state, action: PayloadAction<string>) => {
             state.cells.forEach((row) => {
                 row.forEach((cell) => {
                     cell.color = action.payload
                     cell.opacity = 1
+                    saveCellChanges(cell)
                 })
             })
         },
@@ -111,15 +129,18 @@ export const canvasSlice = createSlice({
                     const newY = y + shiftY
                     if ((newX < state.width && newX >= 0) && (newY < state.height && newY >= 0)) {
                         updatedCanvas[newX][newY] = { ...cell, position: { x: newX, y: newY } }
+                        saveCellChanges(cell)
                     }
                 })
             });
             state.cells = updatedCanvas
+
         },
         clearCanvas: (state) => {
             state.cells.forEach((row) => {
                 row.forEach((cell) => cell.opacity = 0)
             })
+            saveCanvas(state.cells)
         }
     }
 })
